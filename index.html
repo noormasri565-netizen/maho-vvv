@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maho VVV Store</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0f0f0f;--bg2:#1a1a1a;--bg3:#242424;--bg4:#2e2e2e;--acc:#7F77DD;--acc2:#534AB7;--text:#f0f0f0;--text2:#a0a0a0;--text3:#555;--bdr:#2a2a2a;--teal:#1D9E75;--red:#E24B4A}
+body{background:var(--bg);color:var(--text);min-height:100vh;font-family:system-ui,sans-serif;direction:rtl}
+.nav{background:var(--bg2);border-bottom:1px solid var(--bdr);padding:0 20px;height:56px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:100}
+.logo{display:flex;align-items:center;gap:9px;margin-left:auto}
+.logo-box{width:32px;height:32px;border-radius:8px;background:var(--acc);display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px}
+.logo-txt{font-size:15px;font-weight:700;color:var(--text)}
+.logo-txt span{color:var(--acc)}
+.nsearch{flex:1;max-width:340px;position:relative}
+.nsearch input{width:100%;height:34px;background:var(--bg3);border:1px solid var(--bdr);border-radius:8px;padding:0 34px 0 10px;color:var(--text);font-size:13px;outline:none;direction:rtl}
+.nsearch input:focus{border-color:var(--acc)}
+.nsearch input::placeholder{color:var(--text3)}
+.nsearch i{position:absolute;right:10px;top:50%;transform:translateY(-50%);color:var(--text3);font-size:15px}
+.nbtns{display:flex;gap:7px;margin-right:auto}
+.nb{width:34px;height:34px;border-radius:8px;background:var(--bg3);border:1px solid var(--bdr);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text2);font-size:16px;position:relative;transition:.15s}
+.nb:hover{background:var(--bg4);color:var(--text)}
+.cc{position:absolute;top:-4px;left:-4px;width:15px;height:15px;border-radius:50%;background:var(--acc);color:#fff;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.add-btn{display:flex;align-items:center;gap:6px;padding:7px 14px;background:var(--acc);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;transition:.15s}
+.add-btn:hover{background:var(--acc2)}
+.main{padding:20px;max-width:1200px;margin:0 auto}
+.cats{display:flex;gap:7px;margin-bottom:18px;flex-wrap:wrap}
+.cat{padding:6px 13px;border-radius:20px;font-size:12px;cursor:pointer;border:1px solid var(--bdr);background:transparent;color:var(--text2);transition:.15s}
+.cat:hover,.cat.on{background:var(--acc);color:#fff;border-color:var(--acc)}
+.section-title{font-size:15px;font-weight:600;color:var(--text);margin-bottom:14px;display:flex;align-items:center;justify-content:space-between}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;margin-bottom:20px}
+.pcard{background:var(--bg2);border:1px solid var(--bdr);border-radius:12px;overflow:hidden;transition:.15s;cursor:pointer}
+.pcard:hover{border-color:var(--acc);transform:translateY(-2px)}
+.pimg-wrap{height:140px;background:var(--bg3);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.pimg-wrap img{width:100%;height:100%;object-fit:cover}
+.pimg-wrap .picon{font-size:48px;color:var(--text3)}
+.pbadge{position:absolute;top:7px;right:7px;padding:2px 7px;border-radius:4px;font-size:10px;font-weight:700}
+.bdg-new{background:var(--teal);color:#fff}
+.bdg-hot{background:var(--acc);color:#fff}
+.bdg-sale{background:var(--red);color:#fff}
+.pinfo{padding:12px}
+.pcat-lbl{font-size:10px;color:var(--text3);margin-bottom:3px;text-transform:uppercase;letter-spacing:.04em}
+.pname{font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px;line-height:1.3}
+.pdesc{font-size:11px;color:var(--text3);margin-bottom:7px;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pmeta{display:flex;flex-direction:column;gap:3px;margin-bottom:8px}
+.pmeta-item{display:flex;align-items:center;gap:4px;font-size:11px;color:var(--text2)}
+.pfooter{display:flex;align-items:center;justify-content:space-between}
+.pprice{font-size:15px;font-weight:700;color:var(--acc)}
+.padd{width:28px;height:28px;border-radius:6px;background:var(--acc);border:none;color:#fff;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.15s}
+.padd:hover{background:var(--acc2)}
+.modal-overlay{background:rgba(0,0,0,0.75);position:fixed;top:0;left:0;right:0;bottom:0;display:none;align-items:center;justify-content:center;padding:20px;z-index:200;overflow-y:auto}
+.modal-overlay.show{display:flex}
+.modal{background:var(--bg2);border:1px solid var(--bdr);border-radius:14px;padding:22px;width:100%;max-width:440px;margin:auto}
+.modal-title{font-size:15px;font-weight:600;color:var(--text);margin-bottom:16px;display:flex;align-items:center;justify-content:space-between}
+.close-btn{width:28px;height:28px;border-radius:6px;background:var(--bg3);border:none;color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px}
+.close-btn:hover{color:var(--text);background:var(--bg4)}
+.form-group{margin-bottom:13px}
+.form-label{font-size:12px;color:var(--text2);margin-bottom:5px;display:block}
+.form-input{width:100%;height:38px;background:var(--bg3);border:1px solid var(--bdr);border-radius:8px;padding:0 10px;color:var(--text);font-size:13px;outline:none;direction:rtl}
+.form-input:focus{border-color:var(--acc)}
+.form-input::placeholder{color:var(--text3)}
+textarea.form-input{height:72px;padding:8px 10px;resize:none}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.form-select{width:100%;height:38px;background:var(--bg3);border:1px solid var(--bdr);border-radius:8px;padding:0 10px;color:var(--text);font-size:13px;outline:none;direction:rtl;cursor:pointer}
+.form-select:focus{border-color:var(--acc)}
+.img-upload{width:100%;height:110px;background:var(--bg3);border:2px dashed var(--bdr);border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:.15s;overflow:hidden;position:relative}
+.img-upload:hover{border-color:var(--acc)}
+.img-upload img{width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0}
+.upload-placeholder{display:flex;flex-direction:column;align-items:center;gap:5px;position:relative;z-index:1}
+.upload-placeholder i{font-size:26px;color:var(--text3)}
+.upload-placeholder span{font-size:12px;color:var(--text3)}
+.submit-btn{width:100%;height:40px;background:var(--acc);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;margin-top:4px;transition:.15s;display:flex;align-items:center;justify-content:center;gap:6px}
+.submit-btn:hover{background:var(--acc2)}
+.toast{position:fixed;top:68px;left:50%;transform:translateX(-50%);background:var(--teal);color:#fff;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:500;opacity:0;transition:opacity .3s;pointer-events:none;z-index:999;white-space:nowrap}
+.toast.show{opacity:1}
+.cart-drawer{background:var(--bg2);border:1px solid var(--bdr);border-radius:12px;padding:16px;margin-top:16px;display:none}
+.cart-drawer.show{display:block}
+.ci{display:flex;align-items:center;gap:9px;padding:8px 0;border-bottom:1px solid var(--bdr)}
+.ci:last-child{border:none}
+.ci-img{width:36px;height:36px;background:var(--bg3);border-radius:7px;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.ci-img img{width:100%;height:100%;object-fit:cover}
+.ci-info{flex:1;min-width:0}
+.ci-name{font-size:12px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ci-sub{font-size:11px;color:var(--text3)}
+.ci-price{font-size:13px;font-weight:700;color:var(--acc);margin-left:8px}
+.ci-rm{width:22px;height:22px;border-radius:4px;background:transparent;border:1px solid var(--bdr);color:var(--text3);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+.ci-rm:hover{background:var(--red);border-color:var(--red);color:#fff}
+.cart-footer{display:flex;justify-content:space-between;align-items:center;margin-top:12px;padding-top:10px;border-top:1px solid var(--bdr)}
+.empty-state{text-align:center;padding:28px;color:var(--text3);font-size:13px}
+.empty-state i{font-size:30px;display:block;margin-bottom:8px}
+.hero{background:var(--bg2);border-bottom:1px solid var(--bdr);padding:36px 20px;text-align:center}
+.hero-title{font-size:28px;font-weight:700;color:var(--text);margin-bottom:8px}
+.hero-title span{color:var(--acc)}
+.hero-sub{font-size:14px;color:var(--text2);margin-bottom:20px}
+.hero-stats{display:flex;justify-content:center;gap:32px;flex-wrap:wrap}
+.hs-n{font-size:20px;font-weight:700;color:var(--acc)}
+.hs-l{font-size:11px;color:var(--text3);margin-top:2px}
+</style>
+</head>
+<body>
+
+<div class="toast" id="toast"></div>
+<input type="file" id="file-inp" accept="image/*" style="display:none" onchange="onImgSelect(event)">
+
+<div class="nav">
+  <div class="nsearch">
+    <i class="ti ti-search"></i>
+    <input placeholder="ابحث عن منتج..." id="srch" oninput="doFilter()">
+  </div>
+  <div class="nbtns">
+    <div class="nb" onclick="toggleCart()">
+      <i class="ti ti-shopping-cart"></i>
+      <div class="cc" id="cc">0</div>
+    </div>
+  </div>
+  <button class="add-btn" onclick="openModal()"><i class="ti ti-plus"></i>إضافة منتج</button>
+  <div class="logo">
+    <div class="logo-box"><i class="ti ti-shopping-bag"></i></div>
+    <div class="logo-txt">Maho <span>VVV</span></div>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="hero-title">مرحباً في <span>Maho VVV</span></div>
+  <div class="hero-sub">اكتشف أفضل المنتجات بأسعار لا تُقاوم</div>
+  <div class="hero-stats">
+    <div><div class="hs-n">+5K</div><div class="hs-l">منتج</div></div>
+    <div><div class="hs-n">98%</div><div class="hs-l">رضا العملاء</div></div>
+    <div><div class="hs-n">24/7</div><div class="hs-l">دعم فوري</div></div>
+    <div><div class="hs-n">توصيل</div><div class="hs-l">مجاني</div></div>
+  </div>
+</div>
+
+<div class="main">
+  <div class="cats">
+    <div class="cat on" onclick="setCat('all',this)">الكل</div>
+    <div class="cat" onclick="setCat('electronics',this)">إلكترونيات</div>
+    <div class="cat" onclick="setCat('fashion',this)">أزياء</div>
+    <div class="cat" onclick="setCat('food',this)">طعام</div>
+    <div class="cat" onclick="setCat('sport',this)">رياضة</div>
+    <div class="cat" onclick="setCat('home',this)">منزل</div>
+    <div class="cat" onclick="setCat('beauty',this)">جمال</div>
+    <div class="cat" onclick="setCat('other',this)">أخرى</div>
+  </div>
+  <div class="section-title"><span id="prod-count">المنتجات</span></div>
+  <div class="grid" id="pgrid"></div>
+  <div class="cart-drawer" id="cart-drawer">
+    <div class="section-title">سلة التسوق <span style="font-size:12px;color:var(--acc);cursor:pointer;font-weight:400" onclick="toggleCart()">إغلاق</span></div>
+    <div id="cart-items"></div>
+    <div class="cart-footer" id="cart-footer" style="display:none">
+      <span style="font-size:13px;color:var(--text2)">الإجمالي:</span>
+      <div style="display:flex;align-items:center;gap:10px">
+        <span style="font-size:16px;font-weight:700;color:var(--acc)" id="cart-total">0$</span>
+        <button class="add-btn" style="padding:6px 14px">إتمام الشراء</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="overlay">
+  <div class="modal">
+    <div class="modal-title">
+      إضافة منتج جديد
+      <button class="close-btn" onclick="closeModal()"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="form-group">
+      <label class="form-label"><i class="ti ti-photo" style="font-size:13px;vertical-align:-2px"></i> صورة المنتج</label>
+      <div class="img-upload" id="img-upload" onclick="document.getElementById('file-inp').click()">
+        <img id="img-preview" src="" style="display:none">
+        <div class="upload-placeholder" id="upload-ph">
+          <i class="ti ti-cloud-upload"></i>
+          <span>اضغط لرفع صورة</span>
+          <span style="font-size:10px;color:var(--text3)">JPG, PNG, WEBP</span>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label"><i class="ti ti-tag" style="font-size:13px;vertical-align:-2px"></i> اسم المنتج</label>
+      <input class="form-input" id="f-name" placeholder="مثال: سماعات لاسلكية">
+    </div>
+    <div class="form-group">
+      <label class="form-label"><i class="ti ti-align-left" style="font-size:13px;vertical-align:-2px"></i> وصف المنتج</label>
+      <textarea class="form-input" id="f-desc" placeholder="اكتب وصفاً للمنتج..."></textarea>
+    </div>
+    <div class="form-row">
+      <div class="form-group" style="margin-bottom:0">
+        <label class="form-label"><i class="ti ti-coin" style="font-size:13px;vertical-align:-2px"></i> السعر ($)</label>
+        <input class="form-input" id="f-price" type="number" placeholder="0" min="0">
+      </div>
+      <div class="form-group" style="margin-bottom:0">
+        <label class="form-label"><i class="ti ti-category" style="font-size:13px;vertical-align:-2px"></i> الفئة</label>
+        <select class="form-select" id="f-cat">
+          <option value="electronics">إلكترونيات</option>
+          <option value="fashion">أزياء</option>
+          <option value="food">طعام</option>
+          <option value="sport">رياضة</option>
+          <option value="home">منزل</option>
+          <option value="beauty">جمال</option>
+          <option value="other">أخرى</option>
+        </select>
+      </div>
+    </div>
+    <div style="height:12px"></div>
+    <div class="form-group">
+      <label class="form-label"><i class="ti ti-phone" style="font-size:13px;vertical-align:-2px"></i> رقم صاحب المنتج</label>
+      <input class="form-input" id="f-phone" type="tel" placeholder="0501234567" dir="ltr">
+    </div>
+    <div class="form-group">
+      <label class="form-label"><i class="ti ti-map-pin" style="font-size:13px;vertical-align:-2px"></i> موقع المنتج</label>
+      <input class="form-input" id="f-location" placeholder="مثال: الرياض، حي النخيل">
+    </div>
+    <button class="submit-btn" onclick="addProduct()"><i class="ti ti-check"></i>إضافة المنتج</button>
+  </div>
+</div>
+
+<script>
+const CAT_ICONS={electronics:'ti-device-mobile',fashion:'ti-shirt',food:'ti-pizza',sport:'ti-barbell',home:'ti-home',beauty:'ti-sparkles',other:'ti-package'};
+const CAT_NAMES={electronics:'إلكترونيات',fashion:'أزياء',food:'طعام',sport:'رياضة',home:'منزل',beauty:'جمال',other:'أخرى'};
+
+let products=[
+  {id:1,name:'سماعات لاسلكية',desc:'جودة صوت استثنائية مع إلغاء الضجيج',price:89,cat:'electronics',phone:'0501234567',location:'الرياض، العليا',badge:'sale',img:''},
+  {id:2,name:'ساعة ذكية فاخرة',desc:'تتبع نشاطك اليومي بدقة عالية',price:199,cat:'electronics',phone:'0551234567',location:'جدة، الروضة',badge:'hot',img:''},
+  {id:3,name:'جاكيت شتوي عصري',desc:'قماش فاخر مريح لجميع المواسم',price:65,cat:'fashion',phone:'0561234567',location:'الدمام، الكورنيش',badge:'new',img:''},
+  {id:4,name:'حذاء رياضي كلاسيك',desc:'مريح للجري والمشي اليومي',price:79,cat:'sport',phone:'0571234567',location:'أبوظبي، الكورنيش',badge:'',img:''},
+  {id:5,name:'قهوة مختصة فاخرة',desc:'حبوب قهوة عربية أصيلة محمصة طازجة',price:19,cat:'food',phone:'0581234567',location:'الرياض، العليا',badge:'hot',img:''},
+  {id:6,name:'مصباح ذكي LED',desc:'تحكم بالإضاءة عبر هاتفك بسهولة',price:39,cat:'home',phone:'0591234567',location:'دبي، مارينا',badge:'new',img:''},
+];
+
+let cart=[],curCat='all',searchQ='',nextId=7,pendingImg='';
+
+function render(){
+  const f=products.filter(p=>(curCat==='all'||p.cat===curCat)&&(!searchQ||p.name.includes(searchQ)||p.desc.includes(searchQ)));
+  document.getElementById('prod-count').textContent='المنتجات ('+f.length+')';
+  const g=document.getElementById('pgrid');
+  if(!f.length){g.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text3);font-size:14px">لا توجد منتجات مطابقة</div>';return;}
+  g.innerHTML=f.map(p=>`<div class="pcard">
+    <div class="pimg-wrap">
+      ${p.img?`<img src="${p.img}" alt="${p.name}">`:`<i class="ti ${CAT_ICONS[p.cat]||'ti-package'} picon"></i>`}
+      ${p.badge?`<div class="pbadge bdg-${p.badge}">${p.badge==='new'?'جديد':p.badge==='hot'?'رائج':'خصم'}</div>`:''}
+    </div>
+    <div class="pinfo">
+      <div class="pcat-lbl">${CAT_NAMES[p.cat]||'أخرى'}</div>
+      <div class="pname">${p.name}</div>
+      <div class="pdesc">${p.desc}</div>
+      <div class="pmeta">
+        <div class="pmeta-item"><i class="ti ti-phone" style="font-size:12px"></i>${p.phone}</div>
+        <div class="pmeta-item"><i class="ti ti-map-pin" style="font-size:12px"></i>${p.location}</div>
+      </div>
+      <div class="pfooter">
+        <span class="pprice">${p.price}$</span>
+        <button class="padd" onclick="addToCart(${p.id})"><i class="ti ti-plus"></i></button>
+      </div>
+    </div>
+  </div>`).join('');
+}
+
+function onImgSelect(e){
+  const file=e.target.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    pendingImg=ev.target.result;
+    const pr=document.getElementById('img-preview');
+    pr.src=pendingImg;pr.style.display='block';
+    document.getElementById('upload-ph').style.display='none';
+  };
+  reader.readAsDataURL(file);
+}
+
+function setCat(cat,el){curCat=cat;document.querySelectorAll('.cat').forEach(c=>c.classList.remove('on'));el.classList.add('on');render();}
+function doFilter(){searchQ=document.getElementById('srch').value.trim();render();}
+
+function addToCart(id){
+  const p=products.find(x=>x.id===id);
+  const ex=cart.find(x=>x.id===id);
+  if(ex)ex.qty++;else cart.push({...p,qty:1});
+  updateCart();showToast('تمت الإضافة: '+p.name);
+}
+
+function removeFromCart(id){cart=cart.filter(x=>x.id!==id);updateCart();}
+
+function updateCart(){
+  document.getElementById('cc').textContent=cart.reduce((a,x)=>a+x.qty,0);
+  const ci=document.getElementById('cart-items'),cf=document.getElementById('cart-footer');
+  if(!cart.length){ci.innerHTML='<div class="empty-state"><i class="ti ti-shopping-cart"></i>السلة فارغة</div>';cf.style.display='none';return;}
+  ci.innerHTML=cart.map(x=>`<div class="ci">
+    <div class="ci-img">${x.img?`<img src="${x.img}" alt="${x.name}">`:`<i class="ti ${CAT_ICONS[x.cat]||'ti-package'}"></i>`}</div>
+    <div class="ci-info"><div class="ci-name">${x.name}</div><div class="ci-sub">${x.location}</div></div>
+    <span class="ci-price">${x.price*x.qty}$</span>
+    <button class="ci-rm" onclick="removeFromCart(${x.id})"><i class="ti ti-x" style="font-size:11px"></i></button>
+  </div>`).join('');
+  document.getElementById('cart-total').textContent=cart.reduce((a,x)=>a+x.price*x.qty,0)+'$';
+  cf.style.display='flex';
+}
+
+function toggleCart(){document.getElementById('cart-drawer').classList.toggle('show');updateCart();}
+function openModal(){document.getElementById('overlay').classList.add('show');}
+function closeModal(){document.getElementById('overlay').classList.remove('show');clearForm();}
+
+function clearForm(){
+  ['f-name','f-desc','f-price','f-phone','f-location'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('f-cat').value='electronics';
+  document.getElementById('file-inp').value='';
+  document.getElementById('img-preview').style.display='none';
+  document.getElementById('img-preview').src='';
+  document.getElementById('upload-ph').style.display='flex';
+  pendingImg='';
+}
+
+function addProduct(){
+  const name=document.getElementById('f-name').value.trim();
+  const desc=document.getElementById('f-desc').value.trim();
+  const price=parseFloat(document.getElementById('f-price').value);
+  const cat=document.getElementById('f-cat').value;
+  const phone=document.getElementById('f-phone').value.trim();
+  const location=document.getElementById('f-location').value.trim();
+  if(!name){showToast('الرجاء إدخال اسم المنتج');return;}
+  if(!price||isNaN(price)||price<=0){showToast('الرجاء إدخال سعر صحيح');return;}
+  if(!phone){showToast('الرجاء إدخال رقم الهاتف');return;}
+  if(!location){showToast('الرجاء إدخال موقع المنتج');return;}
+  products.unshift({id:nextId++,name,desc:desc||'لا يوجد وصف',price:Math.round(price),cat,phone,location,badge:'new',img:pendingImg});
+  closeModal();render();showToast('تم إضافة المنتج بنجاح!');
+}
+
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2500);
+}
+
+render();updateCart();
+</script>
+</body>
+</html>
